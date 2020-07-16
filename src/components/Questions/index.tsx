@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState, useAppDispatch } from "../../store";
+import { QuizState, changeStep } from "../../store/slices/quizSlice";
 import { Quiz } from "../../models/Quiz";
 import { QuestionItem } from "./QuestionItem";
 
 interface Props {}
 const TOTAL_QUESTIONS = 10;
 export const Questions: React.FC<Props> = () => {
-  const [step, setStep] = useState(0);
-  const quizes = useSelector<RootState, Quiz[]>((state) => state.quiz.quizes);
+  const quizState = useSelector<RootState, QuizState>((state) => state?.quiz);
+  const dispatch = useAppDispatch();
+  const quizes = quizState?.quizes;
+  const step = quizState.step;
+
   console.log(step);
   return (
     <>
@@ -17,10 +21,15 @@ export const Questions: React.FC<Props> = () => {
       {quizes.length > 0 && quizes?.[step] && (
         <>
           <QuestionItem quizItem={quizes[step]} />
-          <button onClick={() => setStep(step + 1)}>Next</button>
+          <button onClick={() => dispatch(changeStep(step + 1))}>Next</button>
         </>
       )}
-      {step > TOTAL_QUESTIONS - 1 && <div>You are done</div>}
+      {step > TOTAL_QUESTIONS - 1 && (
+        <div>
+          You are done
+          <button onClick={() => dispatch(changeStep(0))}>PlayAgain?</button>
+        </div>
+      )}
     </>
   );
 };

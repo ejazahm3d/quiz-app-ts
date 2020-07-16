@@ -11,11 +11,12 @@ export enum Difficulty {
   Medium = "medium",
   Hard = "hard",
 }
-interface QuizState {
+export interface QuizState {
   quizCategories: TriviaCategory[];
   currentCategory: number;
   difficulty: Difficulty | string;
   quizes: Quiz[];
+  step: number;
 }
 
 const initialState: QuizState = {
@@ -23,6 +24,7 @@ const initialState: QuizState = {
   currentCategory: 0,
   difficulty: Difficulty.Easy,
   quizes: [],
+  step: 0,
 };
 
 export const fetchCategories = createAsyncThunk(
@@ -64,6 +66,9 @@ export const quizSlice = createSlice({
     changeDifficulty: (state, action: PayloadAction<Difficulty | string>) => {
       state.difficulty = action.payload;
     },
+    changeStep: (state, action: PayloadAction<number>) => {
+      state.step = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
@@ -89,4 +94,8 @@ export const quizSlice = createSlice({
   },
 });
 
-export const { changeCategory, changeDifficulty } = quizSlice.actions;
+export const {
+  changeCategory,
+  changeDifficulty,
+  changeStep,
+} = quizSlice.actions;

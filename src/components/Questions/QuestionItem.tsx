@@ -1,10 +1,8 @@
-import React, { SetStateAction, Dispatch } from "react";
+import React from "react";
 import { Quiz } from "../../models/Quiz";
 
 interface Props {
   quizItem: Quiz;
-  // setStep: Dispatch<SetStateAction<number>>;
-  // currentIndex: number;
 }
 
 export const QuestionItem: React.FC<Props> = ({ quizItem }) => {

@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { quizSlice } from "./slices/quizSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const rootReducer = combineReducers({
   quiz: quizSlice.reducer,

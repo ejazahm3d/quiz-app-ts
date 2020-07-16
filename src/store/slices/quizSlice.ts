@@ -2,16 +2,23 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { TriviaCategory } from "../../models/TriviaCategory";
 import axios from "axios";
 
-const BASE_URL = "https://opentdb.com/";
+const BASE_URL = "https://opentdb.com";
 
+export enum Difficulty {
+  Easy = "easy",
+  Medium = "medium",
+  Hard = "hard",
+}
 interface QuizState {
   quizCategories: TriviaCategory[];
   currentCategory: number;
+  difficulty: Difficulty | string;
 }
 
 const initialState: QuizState = {
   quizCategories: [],
   currentCategory: 0,
+  difficulty: Difficulty.Easy,
 };
 
 export const fetchCategories = createAsyncThunk(
@@ -29,12 +36,28 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
+export const makeQuiz = createAsyncThunk(
+  "quiz/makeQuiz",
+  async (data: { currentDifficulty: string; currentCategory: number }) => {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/api.php?amount=10&category=${data.currentCategory}&difficulty=${data.currentDifficulty}&type=multiple`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const quizSlice = createSlice({
   name: "quiz",
   initialState,
   reducers: {
     changeCategory: (state, action: PayloadAction<number>) => {
       state.currentCategory = action.payload;
+    },
+    changeDifficulty: (state, action: PayloadAction<Difficulty | string>) => {
+      state.difficulty = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -44,4 +67,4 @@ export const quizSlice = createSlice({
   },
 });
 
-export const { changeCategory } = quizSlice.actions;
+export const { changeCategory, changeDifficulty } = quizSlice.actions;

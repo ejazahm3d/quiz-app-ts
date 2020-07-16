@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, RootState } from "../store";
-import { fetchCategories } from "../store/slices/quizSlice";
+import { fetchCategories, Difficulty } from "../store/slices/quizSlice";
 import { useSelector } from "react-redux";
 import { TriviaCategory } from "../models/TriviaCategory";
-import { SelectCategory } from "../components/SelectCategory";
+import { QuizForm } from "../components/QuizForm";
 
 const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const triviaCategories = useSelector<RootState, TriviaCategory[]>(
     (state) => state?.quiz?.quizCategories ?? []
+  );
+  const currentDifficulty = useSelector<RootState, Difficulty | string>(
+    (state) => state.quiz.difficulty
+  );
+
+  const currentCategory = useSelector<RootState, number>(
+    (state) => state?.quiz?.currentCategory ?? 0
   );
 
   useEffect(() => {
@@ -17,7 +24,11 @@ const HomePage: React.FC = () => {
 
   return (
     <div style={{ height: "100vh" }}>
-      <SelectCategory triviaCategories={triviaCategories} />
+      <QuizForm
+        triviaCategories={triviaCategories}
+        currentDifficulty={currentDifficulty}
+        currentCategory={currentCategory}
+      />
     </div>
   );
 };

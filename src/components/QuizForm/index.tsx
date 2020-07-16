@@ -5,6 +5,7 @@ import {
   Difficulty,
   changeDifficulty,
   changeCategory,
+  makeQuiz,
 } from "../../store/slices/quizSlice";
 import { SelectValue } from "antd/lib/select";
 import { TriviaCategory } from "../../models/TriviaCategory";
@@ -33,9 +34,12 @@ export const QuizForm: React.FC<Props> = ({
       dispatch(changeCategory(e));
     }
   };
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log(currentDifficulty, currentCategory);
+    const res = await dispatch(
+      makeQuiz({ currentCategory, currentDifficulty })
+    );
+    console.log(res.payload);
   };
   return (
     <form onSubmit={handleSubmit}>

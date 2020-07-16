@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { TriviaCategory } from "../../models/TriviaCategory";
 import axios from "axios";
+import { QuizResponseDto } from "../../dtos/QuizResponseDto";
+import { Quiz } from "../../models/Quiz";
 
 const BASE_URL = "https://opentdb.com";
 
@@ -13,12 +15,14 @@ interface QuizState {
   quizCategories: TriviaCategory[];
   currentCategory: number;
   difficulty: Difficulty | string;
+  quizes: Quiz[];
 }
 
 const initialState: QuizState = {
   quizCategories: [],
   currentCategory: 0,
   difficulty: Difficulty.Easy,
+  quizes: [],
 };
 
 export const fetchCategories = createAsyncThunk(
@@ -40,9 +44,10 @@ export const makeQuiz = createAsyncThunk(
   "quiz/makeQuiz",
   async (data: { currentDifficulty: string; currentCategory: number }) => {
     try {
-      const res = await axios.get(
+      const res = await axios.get<{ results: QuizResponseDto[] }>(
         `${BASE_URL}/api.php?amount=10&category=${data.currentCategory}&difficulty=${data.currentDifficulty}&type=multiple`
       );
+      return res.data?.results;
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +68,23 @@ export const quizSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
       if (action.payload) state.quizCategories = action.payload;
+    });
+    builder.addCase(makeQuiz.fulfilled, (state, action) => {
+      const mappedQuizes = action.payload?.map((quiz) => {
+        const question = quiz?.question;
+        const correctAnswer = quiz?.correct_answer;
+        quiz?.incorrect_answers?.push(correctAnswer);
+        const choices = quiz?.incorrect_answers;
+        const categoryName = quiz?.category;
+        return {
+          question,
+          correctAnswer,
+          choices,
+          categoryName,
+        };
+      });
+
+      state.quizes = mappedQuizes ?? [];
     });
   },
 });

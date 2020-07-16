@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Router } from "./router";
-
+import { Provider as ReduxProvider } from "react-redux";
+import store from "./store";
 interface Answer {
   question: string;
   answer: string;
@@ -9,11 +10,10 @@ interface Answer {
 }
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(false);
   return (
-    <div>
+    <ReduxProvider store={store}>
       <Router />
-    </div>
+    </ReduxProvider>
   );
 };
 

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { TriviaCategory } from "../../models/TriviaCategory";
 import { Select, Row } from "antd";
 import { useAppDispatch } from "../../store";
 import { changeCategory } from "../../store/slices/quizSlice";
+import { SelectValue } from "antd/lib/select";
 
 const { Option } = Select;
 interface Props {
@@ -11,11 +12,10 @@ interface Props {
 
 export const SelectCategory: React.FC<Props> = ({ triviaCategories }) => {
   const dispatch = useAppDispatch();
-  const [category, setCategory] = useState(triviaCategories?.[0]?.id);
-  const handleCategoryChange = (e: number): void => {
-    setCategory(e);
-    dispatch(changeCategory(e));
-    console.log(category);
+  const handleCategoryChange = (e: SelectValue): void => {
+    if (typeof e === "number") {
+      dispatch(changeCategory(e));
+    }
   };
   return (
     <>
@@ -24,7 +24,7 @@ export const SelectCategory: React.FC<Props> = ({ triviaCategories }) => {
           size="large"
           style={{ width: "14rem" }}
           placeholder="Select your category"
-          defaultValue={category}
+          defaultValue={undefined}
           onChange={(e) => handleCategoryChange(e)}
         >
           {triviaCategories.map((category) => (

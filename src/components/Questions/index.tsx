@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { QuizState, changeStep } from "../../store/slices/quizSlice";
-import { Quiz } from "../../models/Quiz";
 import { QuestionItem } from "./QuestionItem";
 
-interface Props {}
 const TOTAL_QUESTIONS = 10;
+
+interface Props {}
 export const Questions: React.FC<Props> = () => {
   const quizState = useSelector<RootState, QuizState>((state) => state?.quiz);
   const dispatch = useAppDispatch();

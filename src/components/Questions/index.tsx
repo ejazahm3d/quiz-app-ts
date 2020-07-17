@@ -1,17 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
-import { QuizState, changeStep } from "../../store/slices/quizSlice";
+import { QuizState } from "../../store/slices/quizSlice";
 import { QuestionItem } from "./QuestionItem";
+import { GameState, changeStep } from "../../store/slices/gameSlice";
 
 const TOTAL_QUESTIONS = 10;
 
 interface Props {}
 export const Questions: React.FC<Props> = () => {
   const quizState = useSelector<RootState, QuizState>((state) => state?.quiz);
+  const { step } = useSelector<RootState, GameState>((state) => state.game);
   const dispatch = useAppDispatch();
   const quizes = quizState?.quizes;
-  const step = quizState.step;
 
   console.log(step);
   return (

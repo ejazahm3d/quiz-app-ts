@@ -3,6 +3,7 @@ import { TriviaCategory } from "../../models/TriviaCategory";
 import axios from "axios";
 import { QuizResponseDto } from "../../dtos/QuizResponseDto";
 import { Quiz } from "../../models/Quiz";
+import { shuffleArray } from "../../utils";
 
 const BASE_URL = "https://opentdb.com";
 
@@ -16,7 +17,6 @@ export interface QuizState {
   currentCategory: number;
   difficulty: Difficulty | string;
   quizes: Quiz[];
-  step: number;
 }
 
 const initialState: QuizState = {
@@ -24,7 +24,6 @@ const initialState: QuizState = {
   currentCategory: 0,
   difficulty: Difficulty.Easy,
   quizes: [],
-  step: 0,
 };
 
 export const fetchCategories = createAsyncThunk(
@@ -66,9 +65,6 @@ export const quizSlice = createSlice({
     changeDifficulty: (state, action: PayloadAction<Difficulty | string>) => {
       state.difficulty = action.payload;
     },
-    changeStep: (state, action: PayloadAction<number>) => {
-      state.step = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
@@ -79,7 +75,7 @@ export const quizSlice = createSlice({
         const question = quiz?.question;
         const correctAnswer = quiz?.correct_answer;
         quiz?.incorrect_answers?.push(correctAnswer);
-        const choices = quiz?.incorrect_answers;
+        const choices = shuffleArray<string>(quiz?.incorrect_answers);
         const categoryName = quiz?.category;
         return {
           question,
@@ -94,8 +90,4 @@ export const quizSlice = createSlice({
   },
 });
 
-export const {
-  changeCategory,
-  changeDifficulty,
-  changeStep,
-} = quizSlice.actions;
+export const { changeCategory, changeDifficulty } = quizSlice.actions;

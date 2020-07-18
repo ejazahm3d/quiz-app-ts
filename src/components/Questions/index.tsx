@@ -17,8 +17,6 @@ export const Questions: React.FC<Props> = () => {
   console.log(step);
   return (
     <>
-      {quizes.length > 0}
-
       {quizes.length > 0 && quizes?.[step] && (
         <>
           <QuestionItem quizItem={quizes[step]} />

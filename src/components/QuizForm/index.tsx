@@ -57,21 +57,21 @@ export const QuizForm: React.FC<Props> = ({
             </Option>
           ))}
         </Select>
-        <Select
-          size="large"
-          style={{ width: "14rem" }}
-          placeholder="Select your category"
-          defaultValue={currentDifficulty}
-          onChange={(e) => handleDifficultyChange(e)}
-        >
-          <Option value={Difficulty.Easy}>Easy</Option>
-          <Option value={Difficulty.Medium}>Medium</Option>
-          <Option value={Difficulty.Hard}>Hard</Option>
-        </Select>
-        <Button htmlType="submit" type="primary">
-          Start Quiz
-        </Button>
       </Row>
+      <Select
+        size="large"
+        style={{ width: "14rem" }}
+        placeholder="Select your category"
+        defaultValue={currentDifficulty}
+        onChange={(e) => handleDifficultyChange(e)}
+      >
+        <Option value={Difficulty.Easy}>Easy</Option>
+        <Option value={Difficulty.Medium}>Medium</Option>
+        <Option value={Difficulty.Hard}>Hard</Option>
+      </Select>
+      <Button htmlType="submit" type="primary">
+        Start Quiz
+      </Button>
     </form>
   );
 };

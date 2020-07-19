@@ -27,7 +27,9 @@ export const gameSlice = createSlice({
     changeStep: (state, action: PayloadAction<number>) => {
       state.step = action.payload;
     },
-    setGame: (state, action: PayloadAction<boolean>) => {},
+    setGame: (state, action: PayloadAction<boolean>) => {
+      state.started = action.payload;
+    },
     addAnswer: (state, action: PayloadAction<UserAnswer>) => {
       if (action.payload.isCorrect) {
         state.score = state.score + 1;

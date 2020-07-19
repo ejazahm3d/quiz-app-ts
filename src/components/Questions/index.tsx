@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { QuizState } from "../../store/slices/quizSlice";
 import { QuestionItem } from "./QuestionItem";
-import { GameState, changeStep } from "../../store/slices/gameSlice";
+import { GameState, changeStep, setGame } from "../../store/slices/gameSlice";
 import { Button, Row, Col } from "antd";
 
 export const TOTAL_QUESTIONS = 10;
@@ -12,7 +12,9 @@ interface Props {}
 export const Questions: React.FC<Props> = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const quizState = useSelector<RootState, QuizState>((state) => state?.quiz);
-  const { step } = useSelector<RootState, GameState>((state) => state.game);
+  const { step, score: currentScore } = useSelector<RootState, GameState>(
+    (state) => state.game
+  );
   const dispatch = useAppDispatch();
   const quizes = quizState?.quizes;
 
@@ -34,6 +36,9 @@ export const Questions: React.FC<Props> = () => {
                   onClick={() => {
                     setIsAnswered(false);
                     dispatch(changeStep(step + 1));
+                    if (step === TOTAL_QUESTIONS - 1) {
+                      dispatch(setGame(false));
+                    }
                   }}
                 >
                   {step === TOTAL_QUESTIONS - 1 ? "Finish" : "Next"}
@@ -44,10 +49,7 @@ export const Questions: React.FC<Props> = () => {
         </>
       )}
       {step > TOTAL_QUESTIONS - 1 && (
-        <div>
-          You are done
-          <Button onClick={() => dispatch(changeStep(0))}>PlayAgain?</Button>
-        </div>
+        <div>You are done. Your score was {currentScore}</div>
       )}
     </>
   );

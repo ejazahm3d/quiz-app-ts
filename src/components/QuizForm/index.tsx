@@ -9,6 +9,7 @@ import {
 } from "../../store/slices/quizSlice";
 import { SelectValue } from "antd/lib/select";
 import { TriviaCategory } from "../../models/TriviaCategory";
+import { setGame, changeStep } from "../../store/slices/gameSlice";
 
 const { Option } = Select;
 
@@ -36,10 +37,9 @@ export const QuizForm: React.FC<Props> = ({
   };
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const res = await dispatch(
-      makeQuiz({ currentCategory, currentDifficulty })
-    );
-    console.log(res.payload);
+    await dispatch(makeQuiz({ currentCategory, currentDifficulty }));
+    dispatch(setGame(true));
+    dispatch(changeStep(0));
   };
   return (
     <form onSubmit={handleSubmit}>

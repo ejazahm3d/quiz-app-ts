@@ -19,17 +19,29 @@ const HomePage: React.FC = () => {
     (state) => state?.quiz?.currentCategory ?? 0
   );
 
+  const currentScore = useSelector<RootState, number>(
+    (state) => state.game.score
+  );
+  const isGameStarted = useSelector<RootState, boolean>(
+    (state) => state.game.started
+  );
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
   return (
     <div style={{ height: "100vh" }}>
-      <QuizForm
-        triviaCategories={triviaCategories}
-        currentDifficulty={currentDifficulty}
-        currentCategory={currentCategory}
-      />
+      {isGameStarted && (
+        <h1 style={{ textAlign: "center" }}>Score: {currentScore}</h1>
+      )}
+      {!isGameStarted && (
+        <QuizForm
+          triviaCategories={triviaCategories}
+          currentDifficulty={currentDifficulty}
+          currentCategory={currentCategory}
+        />
+      )}
 
       <Questions />
     </div>

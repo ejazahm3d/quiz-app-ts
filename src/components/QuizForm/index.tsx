@@ -44,22 +44,22 @@ export const QuizForm: React.FC<Props> = ({
   return (
     <form onSubmit={handleSubmit}>
       <Row justify="center">
-        <Select
-          size="large"
-          style={{ width: "14rem" }}
-          placeholder="Select your category"
-          defaultValue={undefined}
-          onChange={(e) => handleCategoryChange(e)}
-        >
-          {triviaCategories.map((category) => (
-            <Option value={category.id} key={category.id}>
-              {category.name}
-            </Option>
-          ))}
-        </Select>
-      </Row>
-      <Row justify="center">
-        <Col>
+        <Col style={{ marginTop: "1rem", marginRight: "1rem" }}>
+          <Select
+            size="large"
+            style={{ width: "14rem" }}
+            placeholder="Random"
+            defaultValue={undefined}
+            onChange={(e) => handleCategoryChange(e)}
+          >
+            {triviaCategories.map((category) => (
+              <Option value={category.id} key={category.id}>
+                {category.name}
+              </Option>
+            ))}
+          </Select>
+        </Col>
+        <Col style={{ marginTop: "1rem", marginRight: "1rem" }}>
           <Select
             size="large"
             style={{ width: "14rem" }}
@@ -71,6 +71,10 @@ export const QuizForm: React.FC<Props> = ({
             <Option value={Difficulty.Medium}>Medium</Option>
             <Option value={Difficulty.Hard}>Hard</Option>
           </Select>
+        </Col>
+      </Row>
+      <Row justify="center">
+        <Col style={{ marginTop: "1.5rem" }}>
           <Button htmlType="submit" type="primary">
             Start Quiz
           </Button>

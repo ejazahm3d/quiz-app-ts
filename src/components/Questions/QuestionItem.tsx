@@ -1,5 +1,6 @@
 import React from "react";
 import { Quiz } from "../../models/Quiz";
+import { Typography, Row, Col, Button } from "antd";
 
 interface Props {
   quizItem: Quiz;
@@ -8,12 +9,15 @@ interface Props {
 export const QuestionItem: React.FC<Props> = ({ quizItem }) => {
   return (
     <>
-      <h1 dangerouslySetInnerHTML={{ __html: quizItem.question }}></h1>
-      <ul>
-        {quizItem.choices.map((choice) => (
-          <li key={choice}>{choice}</li>
-        ))}
-      </ul>
+      <h3 dangerouslySetInnerHTML={{ __html: quizItem.question }}></h3>
+
+      {quizItem.choices.map((choice) => (
+        <Row>
+          <Col>
+            <Button key={choice}>{choice}</Button>
+          </Col>
+        </Row>
+      ))}
     </>
   );
 };

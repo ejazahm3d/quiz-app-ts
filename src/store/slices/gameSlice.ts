@@ -29,6 +29,7 @@ export const gameSlice = createSlice({
     },
     setGame: (state, action: PayloadAction<boolean>) => {},
     addAnswer: (state, action: PayloadAction<boolean>) => {},
+    resetAnswers: (state, action: PayloadAction<boolean>) => {},
   },
 });
 

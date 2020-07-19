@@ -31,9 +31,8 @@ const HomePage: React.FC = () => {
         currentDifficulty={currentDifficulty}
         currentCategory={currentCategory}
       />
-      <Row>
-        <Questions />
-      </Row>
+
+      <Questions />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { RootState, useAppDispatch } from "../../store";
 import { QuizState } from "../../store/slices/quizSlice";
 import { QuestionItem } from "./QuestionItem";
 import { GameState, changeStep } from "../../store/slices/gameSlice";
+import { Button, Row } from "antd";
 
 const TOTAL_QUESTIONS = 10;
 
@@ -20,13 +21,16 @@ export const Questions: React.FC<Props> = () => {
       {quizes.length > 0 && quizes?.[step] && (
         <>
           <QuestionItem quizItem={quizes[step]} />
-          <button onClick={() => dispatch(changeStep(step + 1))}>Next</button>
+
+          <Button type="primary" onClick={() => dispatch(changeStep(step + 1))}>
+            Next
+          </Button>
         </>
       )}
       {step > TOTAL_QUESTIONS - 1 && (
         <div>
           You are done
-          <button onClick={() => dispatch(changeStep(0))}>PlayAgain?</button>
+          <Button onClick={() => dispatch(changeStep(0))}>PlayAgain?</Button>
         </div>
       )}
     </>

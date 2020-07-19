@@ -41,19 +41,29 @@ export const QuestionItem: React.FC<Props> = ({
   };
   return (
     <>
-      <Row justify="center">
+      <Row justify="center" style={{ marginTop: "1rem" }}>
         <Col>
-          <h3 dangerouslySetInnerHTML={{ __html: quizItem.question }}></h3>
+          <p style={{ textAlign: "center", fontSize: "1.2rem" }}>
+            <span style={{ fontWeight: "bold" }}>Question: </span>
+            <span
+              dangerouslySetInnerHTML={{ __html: quizItem.question }}
+            ></span>
+          </p>
         </Col>
       </Row>
 
-      <Row justify="center">
+      <Row justify="center" style={{ marginTop: "1rem" }}>
         <Col>
-          <Radio.Group onChange={checkAnswer}>
+          <Radio.Group
+            onChange={checkAnswer}
+            buttonStyle="outline"
+            optionType="button"
+            style={{ textAlign: "center" }}
+          >
             {quizItem.choices.map((choice) => (
-              <Radio disabled={isAnswered} key={choice} value={choice}>
-                {choice}
-              </Radio>
+              <Radio.Button disabled={isAnswered} key={choice} value={choice}>
+                <span dangerouslySetInnerHTML={{ __html: choice }}></span>
+              </Radio.Button>
             ))}
           </Radio.Group>
         </Col>

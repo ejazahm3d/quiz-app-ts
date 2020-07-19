@@ -19,9 +19,6 @@ const HomePage: React.FC = () => {
     (state) => state?.quiz?.currentCategory ?? 0
   );
 
-  const currentScore = useSelector<RootState, number>(
-    (state) => state.game.score
-  );
   const isGameStarted = useSelector<RootState, boolean>(
     (state) => state.game.started
   );
@@ -31,10 +28,7 @@ const HomePage: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div style={{ height: "100vh" }}>
-      {isGameStarted && (
-        <h1 style={{ textAlign: "center" }}>Score: {currentScore}</h1>
-      )}
+    <div>
       {!isGameStarted && (
         <QuizForm
           triviaCategories={triviaCategories}

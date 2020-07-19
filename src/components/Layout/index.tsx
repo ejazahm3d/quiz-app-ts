@@ -1,26 +1,30 @@
 import React from "react";
-import { Layout, Typography, Row, Col } from "antd";
+import { Layout, Row, Col } from "antd";
 
 const { Content } = Layout;
-const { Title } = Typography;
 interface Props {}
 
 export const AppLayout: React.FC<Props> = ({ children }) => {
   return (
-    <Layout>
-      <header>
+    <>
+      <header style={{ marginBottom: "2rem", marginTop: "5rem" }}>
         <nav>
           <Row justify="center" align="middle">
             <Col>
-              <Typography>
-                <Title>Quiz App</Title>
-              </Typography>
+              <h1
+                style={{
+                  fontFamily: "'Bungee Outline', cursive",
+                  fontSize: "4rem",
+                }}
+              >
+                Quiz App
+              </h1>
             </Col>
           </Row>
         </nav>
       </header>
 
       <Content>{children}</Content>
-    </Layout>
+    </>
   );
 };

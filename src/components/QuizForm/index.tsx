@@ -44,7 +44,7 @@ export const QuizForm: React.FC<Props> = ({
   return (
     <form onSubmit={handleSubmit}>
       <Row justify="center">
-        <Col style={{ marginTop: "1rem", marginRight: "1rem" }}>
+        <Col style={{ margin: "1rem" }}>
           <Select
             size="large"
             style={{ width: "14rem" }}
@@ -59,7 +59,7 @@ export const QuizForm: React.FC<Props> = ({
             ))}
           </Select>
         </Col>
-        <Col style={{ marginTop: "1rem", marginRight: "1rem" }}>
+        <Col style={{ margin: "1rem" }}>
           <Select
             size="large"
             style={{ width: "14rem" }}

@@ -1,4 +1,5 @@
 @import '~antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Outline&display=swap');
 
 
 body {
@@ -8,6 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('/bg.jpg');
 }
 
 code {

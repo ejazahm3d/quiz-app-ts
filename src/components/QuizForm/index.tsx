@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from "react";
-import { Select, Row, Button } from "antd";
+import { Select, Row, Button, Col } from "antd";
 import { useAppDispatch } from "../../store";
 import {
   Difficulty,
@@ -58,20 +58,24 @@ export const QuizForm: React.FC<Props> = ({
           ))}
         </Select>
       </Row>
-      <Select
-        size="large"
-        style={{ width: "14rem" }}
-        placeholder="Select your category"
-        defaultValue={currentDifficulty}
-        onChange={(e) => handleDifficultyChange(e)}
-      >
-        <Option value={Difficulty.Easy}>Easy</Option>
-        <Option value={Difficulty.Medium}>Medium</Option>
-        <Option value={Difficulty.Hard}>Hard</Option>
-      </Select>
-      <Button htmlType="submit" type="primary">
-        Start Quiz
-      </Button>
+      <Row justify="center">
+        <Col>
+          <Select
+            size="large"
+            style={{ width: "14rem" }}
+            placeholder="Select your category"
+            defaultValue={currentDifficulty}
+            onChange={(e) => handleDifficultyChange(e)}
+          >
+            <Option value={Difficulty.Easy}>Easy</Option>
+            <Option value={Difficulty.Medium}>Medium</Option>
+            <Option value={Difficulty.Hard}>Hard</Option>
+          </Select>
+          <Button htmlType="submit" type="primary">
+            Start Quiz
+          </Button>
+        </Col>
+      </Row>
     </form>
   );
 };

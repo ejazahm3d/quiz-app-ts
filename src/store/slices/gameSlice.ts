@@ -4,7 +4,7 @@ export interface UserAnswer {
   question: string;
   answer: string;
   isCorrect: boolean;
-  correctAnswer: boolean;
+  correctAnswer: string;
 }
 export interface GameState {
   started: boolean;
@@ -28,9 +28,21 @@ export const gameSlice = createSlice({
       state.step = action.payload;
     },
     setGame: (state, action: PayloadAction<boolean>) => {},
-    addAnswer: (state, action: PayloadAction<boolean>) => {},
-    resetAnswers: (state, action: PayloadAction<boolean>) => {},
+    addAnswer: (state, action: PayloadAction<UserAnswer>) => {
+      if (action.payload.isCorrect) {
+        state.score = state.score + 1;
+      }
+      state.userAnswers.push(action.payload);
+    },
+    resetAnswers: (state) => {
+      state.userAnswers = [];
+    },
   },
 });
 
-export const { changeStep, setGame } = gameSlice.actions;
+export const {
+  changeStep,
+  setGame,
+  addAnswer,
+  resetAnswers,
+} = gameSlice.actions;

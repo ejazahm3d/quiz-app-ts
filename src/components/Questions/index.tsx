@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { QuizState } from "../../store/slices/quizSlice";
 import { QuestionItem } from "./QuestionItem";
 import { GameState, changeStep } from "../../store/slices/gameSlice";
-import { Button, Row } from "antd";
+import { Button, Row, Col } from "antd";
 
-const TOTAL_QUESTIONS = 10;
+export const TOTAL_QUESTIONS = 10;
 
 interface Props {}
 export const Questions: React.FC<Props> = () => {
+  const [isAnswered, setIsAnswered] = useState(false);
   const quizState = useSelector<RootState, QuizState>((state) => state?.quiz);
   const { step } = useSelector<RootState, GameState>((state) => state.game);
   const dispatch = useAppDispatch();
@@ -20,11 +21,26 @@ export const Questions: React.FC<Props> = () => {
     <>
       {quizes.length > 0 && quizes?.[step] && (
         <>
-          <QuestionItem quizItem={quizes[step]} />
-
-          <Button type="primary" onClick={() => dispatch(changeStep(step + 1))}>
-            Next
-          </Button>
+          <QuestionItem
+            quizItem={quizes[step]}
+            isAnswered={isAnswered}
+            setIsAnswered={setIsAnswered}
+          />
+          {isAnswered && (
+            <Row justify="center">
+              <Col>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    setIsAnswered(false);
+                    dispatch(changeStep(step + 1));
+                  }}
+                >
+                  {step === TOTAL_QUESTIONS - 1 ? "Finish" : "Next"}
+                </Button>
+              </Col>
+            </Row>
+          )}
         </>
       )}
       {step > TOTAL_QUESTIONS - 1 && (

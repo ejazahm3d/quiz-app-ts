@@ -4,7 +4,6 @@ import { fetchCategories, Difficulty } from "../store/slices/quizSlice";
 import { useSelector } from "react-redux";
 import { TriviaCategory } from "../models/TriviaCategory";
 import { QuizForm } from "../components/QuizForm";
-import { Row } from "antd";
 import { Questions } from "../components/Questions";
 
 const HomePage: React.FC = () => {

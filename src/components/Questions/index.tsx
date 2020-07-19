@@ -73,6 +73,8 @@ export const Questions: React.FC<Props> = () => {
             justifyContent: "center",
             marginTop: "1.5rem",
             fontSize: "2rem",
+            textAlign: "center",
+            padding: "1rem",
           }}
         >
           You are done. Your score was {currentScore}

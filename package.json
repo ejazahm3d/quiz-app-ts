@@ -13,7 +13,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.9",
     "antd": "^4.4.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "history": "^5.0.0-beta.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
